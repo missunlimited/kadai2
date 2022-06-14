@@ -8,22 +8,28 @@ import java.util.ArrayList;
 
 public class Data {
     /**
-     * CSV読み込み
-     * @throws FileNotFoundException
+     * CSVファイル読み込み
+     * @return
      */
-    public void load() throws FileNotFoundException {
+    public ArrayList<Student> load() {
         String fileName = "src/main/java/org/data/data.csv";
         File f = new File(fileName);
         String studentData;
-        BufferedReader br = new BufferedReader(new FileReader(f));
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(f));
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
-        ArrayList<ArrayList<String>> twoDStudentList = new ArrayList<>();
+        ArrayList<Student> studentDetail = new ArrayList<>(); // [生徒の名前, 身長, 出席番号]
+        ArrayList<ArrayList<String>> allStudents = new ArrayList<>(); // [[生徒1, 150, 1], [生徒2, 160, 2], ...]
+
 
         /**
          * 配列生成
          */
         try {
-
             while ((studentData = br.readLine()) != null) {
 
                 ArrayList<String> studentList = new ArrayList<>();
@@ -33,45 +39,28 @@ public class Data {
                     studentList.add(splitedStudentData);
                 }
 
-                twoDStudentList.add(studentList);
-            }
-//            System.out.println(twoDStudentList); // [[あ, 150, 1], [い, 160, 2], [う, 170, 3], [え, 180, 4], [お, 190, 5]]
-
-//            for (ArrayList<String> twoDStudentListElements : twoDStudentList) {
-//                System.out.println(twoDStudentListElements.get(2)); // 1, 2, 3, 4, 5
-//            }
-
-            /**
-             * even.checkEvenOdd()出力
-             */
-            for (ArrayList<String> twoDStudent : twoDStudentList) {
-                int studentHeight = Integer.parseInt(twoDStudent.get(1));
-                int studentNum = Integer.parseInt(twoDStudent.get(2));
-                Even even = new Even(twoDStudent.get(0), studentHeight, studentNum);
-                System.out.println(even.checkEvenOdd());
+                allStudents.add(studentList); // [[生徒1, 150, 1], [生徒2, 160, 2], ...]
             }
 
-            System.out.println();
-
-            /**
-             * odd.checkEvenOdd()出力
-             */
-            for (ArrayList<String> twoDStudent : twoDStudentList) {
-                int studentHeight = Integer.parseInt(twoDStudent.get(1));
-                int studentNum = Integer.parseInt(twoDStudent.get(2));
-                Odd odd = new Odd(twoDStudent.get(0), studentHeight, studentNum);
-                System.out.println(odd.checkEvenOdd());
+            for (int i = 0; i < allStudents.size(); i++) {
+                if (i % 2 == 1) {
+                    Student odd = new Odd(allStudents.get(i).get(0), Double.parseDouble(allStudents.get(i).get(1)), Integer.parseInt(allStudents.get(i).get(2)));
+                    studentDetail.add(odd);
+                }else {
+                    Student even = new Even(allStudents.get(i).get(0), Double.parseDouble(allStudents.get(i).get(1)), Integer.parseInt(allStudents.get(i).get(2)));
+                    studentDetail.add(even);
+                }
             }
-
-        } catch (Exception e) {
+            System.out.println(allStudents); // [[生徒1, 150, 1], [生徒2, 160, 2], [生徒3, 170, 3], [生徒4, 180, 4], [生徒5, 190, 5]]
+        }catch (Exception e) {
             System.out.println(e.getMessage());
-        } finally {
+        }finally {
             try {
                 br.close();
-            } catch (Exception e) {
+            }catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
-
+        return studentDetail;
     }
 }
