@@ -40,4 +40,5 @@ public abstract class Student {
     }
 
     public abstract Object checkEvenOdd();
+
 }
