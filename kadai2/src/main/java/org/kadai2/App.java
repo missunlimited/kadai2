@@ -1,8 +1,6 @@
 package org.kadai2;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -15,40 +13,46 @@ public class App
     public static void main( String[] args ) {
         Data data = new Data();
         ArrayList<Student> studentDetail = data.load(); // 配列に生徒データを格納
-        System.out.println();
+        ClassRoom classRoom = new ClassRoom(studentDetail);
 
         /**
          * 降順ソート実行
          */
-        ClassRoom classRoomDescSort = new ClassRoom(studentDetail);
-        ArrayList<Student> sortStudent = classRoomDescSort.descSort(); // 降順ソートした生徒データを格納
+        ArrayList<Student> sortStudent = classRoom.descSort();
 
         for (int i = 0; i < sortStudent.size(); i++) {
-            System.out.println(sortStudent.get(i).getNum());
+            System.out.print(sortStudent.get(i).getNum() + " ");
         }
+        System.out.println();
         System.out.println();
 
         /**
-         * TODO 線形探索法実行
+         * 線形探索法実行
          */
-        Scanner scanner = new Scanner(System.in);
-        ClassRoom classRoomLinerSearch = new ClassRoom(studentDetail);
-
         System.out.println("出席番号を入力してください。");
-        int inputNum = scanner.nextInt();
-        int position = 0;
+        Scanner scanner = new Scanner(System.in);
+        int target = scanner.nextInt();
+        int position = classRoom.linearSearch(target);
 
-        ArrayList<Student> searchStudent = classRoomLinerSearch.linearSearch();
-
-        try {
-            if (position == 0) {
-                System.out.println("出席番号が見つかりませんでした。");
-            }else {
-                System.out.println(inputNum + "は" + position + "番目です。");
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
+        if (position == 0) {
+            System.out.println("出席番号が見つかりませんでした。");
+        }else {
+            System.out.println(target + "は" + position + "番目です。");
         }
-        System.out.println(searchStudent);
+
+
+        /**
+         * 存在するStudentの数をコンソールに出力
+         */
+        int numberOfStudent = classRoom.countStudent();
+
+        System.out.println("生徒の数は" + numberOfStudent + "人です。");
+
+        ArrayList<Student> allStudent = new ArrayList<>();
+        for (int i = 0; i < numberOfStudent; i++) {
+            System.out.println(studentDetail.get(i).getNum() + " " + studentDetail.get(i).getName() + " " + studentDetail.get(i).checkEvenOdd());
+        }
+
     }
+
 }

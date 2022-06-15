@@ -14,6 +14,6 @@ public class Even extends Student {
                 System.out.println(e.getMessage());
             }
         }
-        return null;
+        return "odd";
     }
 }
