@@ -25,6 +25,9 @@ public class ClassRoom {
     public ArrayList<Student> descSort() {
         ArrayList<Student> sortStudent = new ArrayList<>(); // 降順ソートした生徒データを格納する
 
+        
+
+
         for(int i = 1; i < this.studentList.size(); i++){
             Student indexStudent = this.studentList.get(i);
             int j = i;
