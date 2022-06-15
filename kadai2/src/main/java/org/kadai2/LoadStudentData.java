@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-public class Data {
+public class LoadStudentData {
     /**
      * CSVファイル読み込み
      * @return

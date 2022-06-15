@@ -1,8 +1,6 @@
 package org.kadai2;
 
-import javax.crypto.spec.PSource;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ClassRoom {
     private ArrayList<Student> studentList; // フィールド
@@ -22,6 +20,7 @@ public class ClassRoom {
     /**
      * 降順　挿入ソート
      * @return
+     * TODO 降順ソートをする前の状態で探索できるようにする
      */
     public ArrayList<Student> descSort() {
         ArrayList<Student> sortStudent = new ArrayList<>(); // 降順ソートした生徒データを格納する
@@ -30,10 +29,10 @@ public class ClassRoom {
             Student indexStudent = this.studentList.get(i);
             int j = i;
             while(j > 0 && indexStudent.getHeight() > this.studentList.get(j - 1).getHeight()){ // 隣同士の生徒を比較
-                this.studentList.set(j, this.studentList.get(j - 1)); // j番目にj-1番目の生徒を置き換える
+                this.studentList.set(j, this.studentList.get(j - 1)); // j番目にj-1番目の生徒を上書き
                 j--; //jをデクリメント
             }
-            this.studentList.set(j, indexStudent); // while処理がされなかったときj番目にi番目の生徒を置き換える
+            this.studentList.set(j, indexStudent); // j番目にi番目の生徒を置き換える
         }
         for (Student sorted : studentList) {
             sortStudent.add(sorted);

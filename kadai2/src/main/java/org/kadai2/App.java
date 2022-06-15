@@ -11,7 +11,7 @@ public class App
 {
 
     public static void main( String[] args ) {
-        Data data = new Data();
+        LoadStudentData data = new LoadStudentData();
         ArrayList<Student> studentDetail = data.load(); // 配列に生徒データを格納
         ClassRoom classRoom = new ClassRoom(studentDetail);
 
@@ -28,6 +28,7 @@ public class App
 
         /**
          * 線形探索法実行
+         * TODO 探索後、何番目にいる生徒なのかを出力するのではなく、該当する生徒の名前を出力する
          */
         System.out.println("出席番号を入力してください。");
         Scanner scanner = new Scanner(System.in);
@@ -43,6 +44,7 @@ public class App
 
         /**
          * 存在するStudentの数をコンソールに出力
+         * TODO 生徒の数をclassRoom(インスタンス)で出力できるようにする
          */
         int numberOfStudent = classRoom.countStudent();
 
