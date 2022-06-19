@@ -19,24 +19,12 @@ public abstract class Student {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public double getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
     public int getNum() {
         return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
     }
 
     public abstract Object checkEvenOdd();
